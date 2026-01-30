@@ -1,7 +1,7 @@
 # Laravel on Railway - PHP 8.2 with required extensions
 FROM php:8.2-cli
 
-# Install system deps and PHP extensions Laravel needs
+# Install system deps and PHP extensions Laravel needs (libsqlite3-dev required for pdo_sqlite/sqlite3)
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
+    libsqlite3-dev \
     && docker-php-ext-install pdo pdo_sqlite sqlite3 fileinfo mbstring xml zip bcmath \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
