@@ -78,3 +78,28 @@ php artisan config:cache
 ```
 
 For local dev, use `composer install` (with dev deps) and `php artisan serve`.
+
+---
+
+## Troubleshooting (Railway / production)
+
+### "Call to undefined method Illuminate\Foundation\Application::register()"
+
+This happens when the app uses Laravel 11–style bootstrap (`$app->register()` in `bootstrap/app.php`) but the framework is Laravel 10. This repo uses Laravel 10; providers are in `config/app.php`, not in `bootstrap/app.php`.
+
+- **Fix:** Redeploy from this repo (main branch). In Railway: **Settings** → **Build** → clear build cache (or trigger a new deploy). Ensure no other branch or local file overwrote `bootstrap/app.php` with Laravel 11 style.
+
+### "OpenSSL Error" or "ssl connection has been shutdown"
+
+Usually an external API call (e.g. token URL) failing over SSL in production.
+
+- **Fix:** Set `APP_DEBUG=false` and `APP_URL` to your live URL (e.g. `https://trf-production-xxxx.up.railway.app`) in Railway **Variables**. If the app uses an external API, set its URL and credentials in Variables and ensure the API allows requests from your deployment host.
+
+### Production env vars (Railway Variables)
+
+Set at least:
+
+- `APP_KEY` (from `php artisan key:generate --show` or let the container generate it)
+- `APP_DEBUG=false`
+- `APP_URL=https://your-railway-domain.up.railway.app`
+- `DB_CONNECTION=sqlite` and `DB_DATABASE=/app/database/database.sqlite` (or add Postgres and set `DATABASE_URL`)
