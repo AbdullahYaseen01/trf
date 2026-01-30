@@ -26,12 +26,12 @@ COPY . .
 # Base .env (Railway injects real vars at runtime; .env is in .dockerignore)
 RUN cp .env.example .env
 
-RUN composer dump-autoload --optimize
-
-# Storage and cache dirs (writable); SQLite file for default DB
+# Create cache/storage dirs BEFORE composer dump-autoload (package:discover needs bootstrap/cache writable)
 RUN mkdir -p storage/framework/{sessions,views,cache} storage/logs bootstrap/cache \
     && chmod -R 775 storage bootstrap/cache \
     && touch database/database.sqlite
+
+RUN composer dump-autoload --optimize
 
 # Generate key at runtime if missing; run migrations; then serve
 ENV PORT=8000
