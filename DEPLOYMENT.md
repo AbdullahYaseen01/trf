@@ -55,7 +55,7 @@ If GitHub asks for login, use a **Personal Access Token** as the password (Setti
 
 | Option | Best for |
 |--------|----------|
-| **[Railway](https://railway.app)** | Easy PHP/Laravel deploy, free tier |
+| **[Railway](https://railway.app)** | Easy PHP/Laravel deploy, free tier. This repo includes a `Dockerfile` so Railway builds correctly. |
 | **[Render](https://render.com)** | PHP Web Service, free tier |
 | **[Laravel Forge](https://forge.laravel.com)** + any VPS | Full control, paid |
 | **Shared hosting** (e.g. cPanel) | Cheap, upload via Git or FTP |

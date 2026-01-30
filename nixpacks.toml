@@ -1,0 +1,7 @@
+# Fallback for Railway Nixpacks (Dockerfile takes precedence)
+# If Railpack fails, Railway will use the Dockerfile instead.
+[phps]
+version = "8.2"
+
+[variables]
+COMPOSER_ALLOW_SUPERUSER = "1"
