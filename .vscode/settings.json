@@ -1,0 +1,8 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^php create_test_user\\.php$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}
